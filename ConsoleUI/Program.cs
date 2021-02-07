@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -9,37 +10,49 @@ namespace ConsoleUI
     class Program
     {
         static void Main(string[] args)
-        {         
-            List<Colors> _colors = new List<Colors>
-            {
-                new Colors{ Id=1, ColorName="Red"},
-                new Colors{ Id=2, ColorName="Bej"},
-                new Colors{ Id=3, ColorName="Mavi"},
-                new Colors{ Id=4, ColorName="Beyaz"},
-                new Colors{ Id=5, ColorName="Siyah"}
-            };
+        {
+            //ColorCRUDMethod();
+            //BrandCRUDMethod();
 
-            List<Brand> _brands = new List<Brand>
-            {
-                new Brand{ Id=1, BrandName="Toyota"},
-                new Brand{ Id=2, BrandName="Renault"},
-                new Brand{ Id=3, BrandName="Opel"},
-                new Brand{ Id=4, BrandName="BMW"},
-                new Brand{ Id=5, BrandName="Honda"},
-                new Brand{ Id=6, BrandName="Nissan"},
-                new Brand{ Id=7, BrandName="Peugeot"}
-
-            };
-
-            CarManager carManager = new CarManager(new InMemoryCarDal());
-
-            Console.WriteLine(" ******** KİRALIK ARAÇ FİYATLARI  ******** \n");
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine("{0} -- Günlük Fiyat: {1} TL",car.Description,car.DailyPrice);
-            }
-
+            CarCRUDMethod();
             Console.Read();
         }
+
+        private static void CarCRUDMethod()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            carManager.Add(new Car { BrandId = 8, ColorId = 2, DailyPrice = 120, ModelYear = 2015, Description = "Audi" });
+            carManager.Update(new Car { Id = 3, BrandId = 3, ColorId = 6, DailyPrice = 180, ModelYear = 2020, Description = "Opel Insignia, Otomatik" });
+            Car getCar = carManager.GetById(3);
+            Console.WriteLine("\n Güncellenen araba : {0} \n\n ", getCar.Description);
+
+            // CarName, BrandName, ColorName, DailyPrice
+            Console.WriteLine(" ******* KİRALIK ARAÇLAR ******* \n");
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine("{0} \n Marka : {1} \n Renk : {2} \n Günlük Fiyat : {3} \n",
+                                   car.Description, car.BrandName, car.ColorName, car.DailyPrice.ToString("N2"));
+            }
+        }
+
+
+        private static void BrandCRUDMethod()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            brandManager.Add(new Brand { Id = 8, BrandName = "Audi" });
+            brandManager.Add(new Brand { Id = 9, BrandName = "Jaguar" });
+            brandManager.Add(new Brand { Id = 10, BrandName = "Volkswagen" });
+            brandManager.Update(new Brand { Id = 6, BrandName = "Skoda" });
+            brandManager.Delete(new Brand { Id=10 });
+        }
+
+        private static void ColorCRUDMethod()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            colorManager.Add(new Color { Id = 6, ColorName = "Gri" });
+            colorManager.Update(new Color { Id = 2, ColorName = "Petrol Yeşili" });
+        }
+
     }
 }
