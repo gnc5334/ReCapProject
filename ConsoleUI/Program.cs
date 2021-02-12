@@ -22,18 +22,26 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            carManager.Add(new Car { BrandId = 8, ColorId = 2, DailyPrice = 120, ModelYear = 2015, Description = "Audi" });
+            //carManager.Add(new Car { BrandId = 8, ColorId = 2, DailyPrice = 120, ModelYear = 2015, Description = "Audi" });
             carManager.Update(new Car { Id = 3, BrandId = 3, ColorId = 6, DailyPrice = 180, ModelYear = 2020, Description = "Opel Insignia, Otomatik" });
-            Car getCar = carManager.GetById(3);
-            Console.WriteLine("\n Güncellenen araba : {0} \n\n ", getCar.Description);
-
-            // CarName, BrandName, ColorName, DailyPrice
-            Console.WriteLine(" ******* KİRALIK ARAÇLAR ******* \n");
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetById(3);
+            if (result.Success)
             {
-                Console.WriteLine("{0} \n Marka : {1} \n Renk : {2} \n Günlük Fiyat : {3} \n",
-                                   car.Description, car.BrandName, car.ColorName, car.DailyPrice.ToString("N2"));
+                Console.WriteLine("\n Güncellenen araba : {0} \n\n ", result.Data.Description);
             }
+            
+
+            Console.WriteLine(" ******* KİRALIK ARAÇLAR ******* \n");
+            var listResult = carManager.GetCarDetails();
+            if (listResult.Success)
+            {
+                foreach (var car in listResult.Data)
+                {
+                    Console.WriteLine("{0} \n Marka : {1} \n Renk : {2} \n Günlük Fiyat : {3} \n",
+                                       car.Description, car.BrandName, car.ColorName, car.DailyPrice.ToString("N2"));
+                }
+            }
+            
         }
 
 
