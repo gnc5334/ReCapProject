@@ -13,10 +13,25 @@ namespace ConsoleUI
         {
             //ColorCRUDMethod();
             //BrandCRUDMethod();
+            //CarCRUDMethod();
 
-            CarCRUDMethod();
+            Console.WriteLine("***********Araç Kiralama Sistemi***********\n");
+
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Rental(new Rental
+            {
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = new DateTime(2021, 1, 14),
+                ReturnDate = new DateTime(2021, 2, 07)
+            });
+            Console.WriteLine(result.Message);
+
             Console.Read();
         }
+
+
 
         private static void CarCRUDMethod()
         {
@@ -43,7 +58,6 @@ namespace ConsoleUI
             }
             
         }
-
 
         private static void BrandCRUDMethod()
         {

@@ -17,6 +17,9 @@ namespace Business.Constants
         public static string BrandAdded = "Marka eklendi";
         public static string BrandDeleted = "Marka silindi";
         public static string BrandUpdated = "Marka güncellendi";
+        public static string Added = "Kaydedildi";
+        public static string Deleted = "Silindi";
+        public static string Updated = "Marka güncellendi";
 
     }
 }
