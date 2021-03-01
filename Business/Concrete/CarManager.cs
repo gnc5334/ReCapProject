@@ -15,6 +15,7 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+       
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
@@ -65,5 +66,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
+
+      
     }
 }

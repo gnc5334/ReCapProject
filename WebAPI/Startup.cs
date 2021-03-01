@@ -39,6 +39,9 @@ namespace WebAPI
             services.AddSingleton<IColorService, ColorManager>();
             services.AddSingleton<IColorDal, EfColorDal>();
 
+            services.AddSingleton<ICarImageService, CarImageManager>();
+            services.AddSingleton<ICarImageDal, EfCarImageDal>();
+
             services.AddSingleton<ICustomerService, CustomerManager>();
             services.AddSingleton<ICustomerDal, EfCustomerDal>();
 
