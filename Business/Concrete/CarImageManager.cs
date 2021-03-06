@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
 using Core.Utilities.Results;
@@ -23,7 +25,7 @@ namespace Business.Concrete
         }
 
 
-
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckIfCarImageLimitExceded(carImage.CarId));
@@ -37,6 +39,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             
@@ -45,6 +48,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.Id == carImage.Id).ImagePath, file);
@@ -53,6 +57,8 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<CarImage>> GetAll()
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
