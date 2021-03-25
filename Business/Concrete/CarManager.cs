@@ -10,6 +10,7 @@ using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -65,9 +66,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandId == brandId));
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
@@ -75,6 +76,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
-      
+        public IDataResult<List<CarDetailDto>> GetCarDetailsFilter(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(
+               _carDal.GetCarDetails(c => c.BrandId == brandId && c.ColorId == colorId), "Listed");
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByCarId(int carId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.Id == carId));
+        }
+
     }
 }

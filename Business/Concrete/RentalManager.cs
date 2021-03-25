@@ -45,7 +45,7 @@ namespace Business.Concrete
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
-            return new SuccessResult(Messages.Deleted);
+            return new SuccessResult(Messages.RentalDeleted);
         }
 
         [CacheAspect]
@@ -70,7 +70,7 @@ namespace Business.Concrete
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
-            return new SuccessResult(Messages.Updated);
+            return new SuccessResult(Messages.RentalUpdated);
         }
 
         private IResult CheckIfCarRental(int carId)
@@ -78,7 +78,7 @@ namespace Business.Concrete
             var result = _rentalDal.Get(r => r.CarId == carId);
             if (result.RentDate !=null && result.ReturnDate == null)
             {
-                return new ErrorResult(Messages.CarRental);
+                return new ErrorResult(Messages.RentalAdded);
             }
             return new SuccessResult();
         }

@@ -23,14 +23,14 @@ namespace Business.Concrete
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
-            return new SuccessResult(Messages.Added);
+            return new SuccessResult(Messages.CustomerAdded);
         }
 
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
-            return new SuccessResult(Messages.Deleted);
+            return new SuccessResult(Messages.CustomerDeleted);
         }
 
         [CacheAspect]
@@ -49,7 +49,7 @@ namespace Business.Concrete
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
-            return new SuccessResult(Messages.Updated);
+            return new SuccessResult(Messages.CustomerUpdated);
         }
     }
 }
