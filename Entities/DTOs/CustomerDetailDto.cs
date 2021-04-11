@@ -14,5 +14,7 @@ namespace Entities.DTOs
         public string LastName { get; set; }
         public string Email { get; set; }
         public bool Status { get; set; }
+
+        public int FindeksScore { get; set; }
     }
 }

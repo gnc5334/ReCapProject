@@ -59,5 +59,14 @@ namespace Business.Constants
         public static string SuccessfulLogin = "Başarılı giriş";
         public static string UserAlreadyExists = "Kullanıcı mevcut";
         public static string AccessTokenCreated = "Token oluşturuldu";
+
+        public static string[] ValidImageFileTypes = { ".JPG", ".JPEG", ".PNG", ".TIF", ".TIFF", ".GIF", ".BMP", ".ICO" };
+
+        public static string InvalidImageExtension = "Geçersiz dosya uzantısı, fotoğraf için kabul edilen uzantılar" + string.Join(",", ValidImageFileTypes);
+        public static string CarImageMustBeExists = "Böyle bi resim bulunamadı";
+        public static string CarHaveNoImage = "Arabaya ait bi resim yok";
+
+        public static string CardSaved = "Kartınız kaydedildi.";
+        public static string CardDeleted = "Kartınız silindi.";
     }
 }

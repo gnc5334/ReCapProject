@@ -14,5 +14,12 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Images\108c587d-25bb-4953-a372-176d2b8e0194.jpg" />
+    <None Include="wwwroot\Images\3745ac16-ff95-4226-8307-eb67eae0de85.jpg" />
+    <None Include="wwwroot\Images\63f729ae-a3d0-4695-afe3-5333e25995cb.jpg" />
+    <None Include="wwwroot\Images\no-image.png" />
+  </ItemGroup>
+
 
 </Project>

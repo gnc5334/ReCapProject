@@ -11,5 +11,11 @@ namespace Entities.Concrete
         public int ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
+        public int MinFindeksScore { get; set; }
+        public byte ABS { get; set; }
+        public byte Fuel { get; set; }
+        public byte Gear { get; set; }
+        public byte ParkingSensor { get; set; }
+
     }
 }

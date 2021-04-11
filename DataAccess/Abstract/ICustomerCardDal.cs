@@ -6,8 +6,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarImageDal : IEntityRepository<CarImage>
+    public interface ICustomerCardDal : IEntityRepository<CustomerCard>
     {
-        bool IsExist(int id);
     }
 }

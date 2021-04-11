@@ -10,58 +10,37 @@ namespace Core.Utilities.Helpers
 {
     public class FileHelper
     {
-        public static string folderPath = Environment.CurrentDirectory + @"\Images\";
+        static string directory = Directory.GetCurrentDirectory() + @"\wwwroot\";
+        static string path = @"Images\";
         public static string Add(IFormFile file)
         {
-            var sourcepath = Path.GetTempFileName();
-            if (file.Length > 0)
+            string extension = Path.GetExtension(file.FileName).ToUpper();
+            string newFileName = Guid.NewGuid().ToString("N") + extension;
+            if (!Directory.Exists(directory + path))
             {
-                using (var stream = new FileStream(sourcepath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
+                Directory.CreateDirectory(directory + path);
             }
-            var result = newPath(file);
-            File.Move(sourcepath, $@"{folderPath}\{result}");
-            return result;
+            using (FileStream fileStream = File.Create(directory + path + newFileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+            return (path + newFileName).Replace("\\", "/");
         }
 
-        public static IResult Delete(string path)
+        public static string Update(IFormFile file, string oldImagePath)
         {
-            try
-            {
-                File.Delete($@"{folderPath}\{path}");
-            }
-            catch (Exception exception)
-            {
-                return new ErrorResult(exception.Message);
-            }
-
-            return new SuccessResult();
+            Delete(oldImagePath);
+            return Add(file);
         }
 
-        public static string Update(string sourcePath, IFormFile file)
+        public static void Delete(string imagePath)
         {
-            var result = newPath(file);
-            if (sourcePath.Length > 0)
+            if (File.Exists(directory + imagePath.Replace("/", "\\"))
+                && Path.GetFileName(imagePath) != "no-image.png")
             {
-                using (var stream = new FileStream($@"{folderPath}\{result}", FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
+                File.Delete(directory + imagePath.Replace("/", "\\"));
             }
-            File.Delete(sourcePath);
-            return result;
-        }
-
-        public static string newPath(IFormFile file)
-        {
-            FileInfo ff = new FileInfo(file.FileName);
-            string fileExtension = ff.Extension;
-
-            var newPath = Guid.NewGuid().ToString() + fileExtension;
-            string result = newPath;   
-            return result;
         }
 
     }

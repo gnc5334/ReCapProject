@@ -28,7 +28,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  Email = us.Email,
                                  FirstName = us.FirstName,
                                  LastName = us.LastName,
-                                 Status = us.Status
+                                 Status = us.Status,
+                                 FindeksScore = ct.FindeksScore
                              };
                 return result.ToList();
 
