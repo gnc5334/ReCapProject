@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Extensions;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -42,13 +43,14 @@ namespace DataAccess.Concrete.EntityFramework
 
         }
 
-        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        public List<CarDetailDto> GetAllCarDetailsByFilter(CarDetailFilterDto filterDto)
         {
             using (RentCarContext context = new RentCarContext())
             {
-                var result = from cr in filter == null ? context.Cars : context.Cars.Where(filter)
-                             join b in context.Brands on cr.BrandId equals b.Id
+                var filterExpression = filterDto.GetFilterExpression<Car>();
+                var result = from cr in filterExpression == null ? context.Cars : context.Cars.Where(filterExpression)
                              join cl in context.Colors on cr.ColorId equals cl.Id
+                             join b in context.Brands on cr.BrandId equals b.Id
                              select new CarDetailDto
                              {
                                  Id = cr.Id,
@@ -63,11 +65,12 @@ namespace DataAccess.Concrete.EntityFramework
                                  ParkingSensor = cr.ParkingSensor,
                                  MinFindeksScore = cr.MinFindeksScore,
                                  Status = !context.Rentals.Any(r => r.CarId == cr.Id && (r.ReturnDate == null || r.ReturnDate > DateTime.Now))
+
                              };
                 return result.ToList();
+
             }
         }
-
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,35 +46,10 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpGet("getcarsbybrand")]
-        public IActionResult GetCarsByBrandId(int brandId)
-        {
-            var result = _carService.GetCarsByBrandId(brandId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getcardetailsbycarid")]
-        public IActionResult GetCarDetailsByCarId(int carId)
-        {
-            var result = _carService.GetCarDetailsByCarId(carId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result);
-        }
-
-
-
         [HttpGet("getcarsbycolorid")]
         public IActionResult GetCarsByColorId(int colorId)
         {
-            var result = _carService.GetCarsByColorId(colorId);
+            var result = _carService.GetCarsByColor(colorId);
             if (result.Success)
             {
                 return Ok(result);
@@ -83,9 +59,10 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("getcardetails")]
-        public IActionResult GetCarDetails()
+        public IActionResult GetCarsDetails([FromQuery] CarDetailFilterDto filterDto)
         {
-            var result = _carService.GetCarDetails();
+            var test = HttpContext.Request.Query["brandid"];
+            var result = _carService.GetCarsDetails(filterDto);
             if (result.Success)
             {
                 return Ok(result);

@@ -19,14 +19,14 @@ namespace ConsoleUI
 
 
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            var result = rentalManager.Rental(new Rental
-            {
-                CarId = 1,
-                CustomerId = 1,
-                RentDate = new DateTime(2021, 1, 14),
-                ReturnDate = new DateTime(2021, 2, 07)
-            });
-            Console.WriteLine(result.Message);
+            //var result = rentalManager.Rental(new Rental
+            //{
+            //    CarId = 1,
+            //    CustomerId = 1,
+            //    RentDate = new DateTime(2021, 1, 14),
+            //    ReturnDate = new DateTime(2021, 2, 07)
+            //});
+            //Console.WriteLine(result.Message);
 
             Console.Read();
         }
@@ -35,27 +35,27 @@ namespace ConsoleUI
 
         private static void CarCRUDMethod()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            //CarManager carManager = new CarManager(new EfCarDal());
 
-            //carManager.Add(new Car { BrandId = 8, ColorId = 2, DailyPrice = 120, ModelYear = 2015, Description = "Audi" });
-            carManager.Update(new Car { Id = 3, BrandId = 3, ColorId = 6, DailyPrice = 180, ModelYear = 2020, Description = "Opel Insignia, Otomatik" });
-            var result = carManager.GetById(3);
-            if (result.Success)
-            {
-                Console.WriteLine("\n Güncellenen araba : {0} \n\n ", result.Data.Description);
-            }
+            ////carManager.Add(new Car { BrandId = 8, ColorId = 2, DailyPrice = 120, ModelYear = 2015, Description = "Audi" });
+            //carManager.Update(new Car { Id = 3, BrandId = 3, ColorId = 6, DailyPrice = 180, ModelYear = 2020, Description = "Opel Insignia, Otomatik" });
+            //var result = carManager.GetById(3);
+            //if (result.Success)
+            //{
+            //    Console.WriteLine("\n Güncellenen araba : {0} \n\n ", result.Data.Description);
+            //}
             
 
-            Console.WriteLine(" ******* KİRALIK ARAÇLAR ******* \n");
-            var listResult = carManager.GetCarDetails();
-            if (listResult.Success)
-            {
-                foreach (var car in listResult.Data)
-                {
-                    Console.WriteLine("{0} \n Marka : {1} \n Renk : {2} \n Günlük Fiyat : {3} \n",
-                                       car.Description, car.BrandName, car.ColorName, car.DailyPrice.ToString("N2"));
-                }
-            }
+            //Console.WriteLine(" ******* KİRALIK ARAÇLAR ******* \n");
+            //var listResult = carManager.GetCarDetails();
+            //if (listResult.Success)
+            //{
+            //    foreach (var car in listResult.Data)
+            //    {
+            //        Console.WriteLine("{0} \n Marka : {1} \n Renk : {2} \n Günlük Fiyat : {3} \n",
+            //                           car.Description, car.BrandName, car.ColorName, car.DailyPrice.ToString("N2"));
+            //    }
+            //}
             
         }
 
