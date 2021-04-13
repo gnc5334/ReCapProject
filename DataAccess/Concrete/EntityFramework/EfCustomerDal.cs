@@ -29,6 +29,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  FirstName = us.FirstName,
                                  LastName = us.LastName,
                                  Status = us.Status,
+                                 PhoneNumber = ct.PhoneNumber,
+                                 Address = ct.Address,
                                  FindeksScore = ct.FindeksScore
                              };
                 return result.ToList();

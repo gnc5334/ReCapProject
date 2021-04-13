@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public IActionResult Update(Customer customer)
         {
             var result = _customerService.Update(customer);
@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("delete")]
+        [HttpDelete("delete")]
         public IActionResult Delete(Customer customer)
         {
             var result = _customerService.Delete(customer);
@@ -98,6 +98,18 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
 
+            return BadRequest(result);
+        }
+
+
+        [HttpGet("getbyuserid")]
+        public IActionResult GetByUserID(int id)
+        {
+            var result = _customerService.GetByUserID(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
 

@@ -33,6 +33,12 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CustomerManager>().As<ICustomerService>().SingleInstance();
             builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
 
+            builder.RegisterType<CustomerCardManager>().As<ICustomerCardService>().SingleInstance();
+            builder.RegisterType<EfCustomerCardDal>().As<ICustomerCardDal>().SingleInstance();
+
+            builder.RegisterType<FakeCardManager>().As<IFakeCardService>().SingleInstance();
+            builder.RegisterType<EfFakeCardDal>().As<IFakeCardDal>().SingleInstance();
+
             builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();
             builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
 

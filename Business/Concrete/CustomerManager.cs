@@ -23,6 +23,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Add(Customer customer)
         {
+            customer.FindeksScore = 0;
             _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
         }
@@ -64,5 +65,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails(c => c.CustomerId == customerId), Messages.CustomerListed);
         }
 
+        public IDataResult<Customer> GetByUserID(int id)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == id));
+        }
     }
 }
